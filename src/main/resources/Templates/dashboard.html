@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Attendance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        h1 {
+            color: #222;
+            display: flex;
+            align-items: center;
+        }
+        h1::before {
+            content: "\1F4CB";
+            margin-right: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-bottom: 10px;
+        }
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .subtext {
+            color: #555;
+            margin: 4px 0;
+        }
+        .qr img {
+            margin-top: 10px;
+            height: 100px;
+            width: 100px;
+        }
+        .status {
+            margin-top: 8px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<h1>Teacher Attendance Dashboard</h1>
+
+<div class="grid">
+    <div th:each="teacher : ${userList}" class="card">
+        <div class="profile-img">
+            <img th:src="'data:image/png;base64,' + ${teacher.imageBase64}" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;" />
+        </div>
+        <div class="name" th:text="${teacher.name}">Teacher Name</div>
+        <div class="subtext" th:text="'Role: ' + ${teacher.role}">Role</div>
+        <div class="subtext" th:text="'Leaves Taken: ' + ${teacher.leavesTaken} + ', Remaining: ' + ${teacher.leavesLeft}">Leave Info</div>
+        <div class="qr">
+            <img th:src="'data:image/png;base64,' + ${teacher.qrCodeData}" alt="QR Code" />
+        </div>
+        <div class="status">✔️ Attendance Marked</div> <!-- Optional: change dynamically later -->
+    </div>
+</div>
+
+</body>
+</html>
